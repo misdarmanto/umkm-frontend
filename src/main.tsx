@@ -8,7 +8,6 @@ import About from "./routers/about";
 import ErrorPage from "./error-page";
 import Root from "./routers/root";
 import Menu from "./routers/menu";
-import DeatailMenu from "./routers/menu/detail";
 import DetailMenu from "./routers/menu/detail";
 
 const router = createBrowserRouter([

@@ -3,28 +3,24 @@ import Typography from "../components/typography";
 import CardStyle from "../components/card";
 import { Link } from "react-router-dom";
 import { MENU, MenuTypes } from "../data";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Menu = () => {
 	const [listMenu, setListMenu] = useState(MENU);
-
-	console.log(listMenu);
 
 	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		if (event.target.value === "") {
 			setListMenu(MENU);
 			return;
 		}
-
 		const result = MENU.filter((item: MenuTypes) => {
 			if (item.title.toUpperCase().search(event.target.value.toUpperCase()) !== -1) return item;
 		});
-
 		setListMenu(result);
 	};
 
 	return (
-		<>
+		<div>
 			<Typography variant="h2" className="text-center mb-10">
 				All Menu
 			</Typography>
@@ -77,7 +73,7 @@ const Menu = () => {
 					</Link>
 				))}
 			</div>
-		</>
+		</div>
 	);
 };
 

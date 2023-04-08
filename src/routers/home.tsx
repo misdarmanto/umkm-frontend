@@ -1,15 +1,27 @@
-import { Avatar, Card, Carousel } from "flowbite-react";
+import { Card } from "flowbite-react";
 import ImageBanner from "../assets/banner1.png";
 import ImageVegtable from "../assets/banner2.png";
-import ImageFood from "../assets/nasigoreng.png";
 import Typography from "../components/typography";
 import CardStyle from "../components/card";
 import { CHEF, ChefTypes } from "../data/chef";
 import { FEEDBACK, FeedbackTypes } from "../data/feed-back";
 import { POPULAR_FOOD, PopularFoodTypes } from "../data/popular-food";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { ServiceApi } from "../services/api";
+import { CONFIG } from "../configs";
 
 const Home = () => {
+	useEffect(() => {
+		fecthData();
+	}, []);
+
+	const fecthData = async () => {
+		const serviceApi = new ServiceApi(CONFIG.base_url_api);
+		const result = await serviceApi.get("/menu");
+		console.log(result);
+	};
+
 	return (
 		<>
 			<div className="sm:flex justify-between items-center mb-10">
@@ -26,14 +38,14 @@ const Home = () => {
 					</p>
 				</div>
 				<img
-					className=" sm:h-64 w-96 max-w-lg rounded-lg"
+					className="sm:h-64 w-full sm:w-96 max-w-lg rounded-lg"
 					src={ImageBanner}
 					alt="image description"
 				/>
 			</div>
 
 			<Typography variant="h2" className="text-center mb-5">
-				Menu Popular
+				Menu Populer
 			</Typography>
 			<div className="flex overflow-x-auto max-w-full my-5">
 				{POPULAR_FOOD.map((item: PopularFoodTypes) => (
@@ -44,6 +56,7 @@ const Home = () => {
 							stars={item.stars}
 							price={item.price}
 							image={item.image}
+							className="m-2"
 						/>
 					</Link>
 				))}
@@ -51,7 +64,7 @@ const Home = () => {
 
 			<div className="sm:flex justify-between items-center my-20">
 				<img
-					className=" sm:h-64 w-96 max-w-lg rounded-lg"
+					className="sm:h-64 w-full sm:w-96 max-w-lg rounded-lg"
 					src={ImageVegtable}
 					alt="image description"
 				/>
@@ -74,7 +87,10 @@ const Home = () => {
 			</Typography>
 			<div className=" sm:flex max-w-full">
 				{CHEF.map((item: ChefTypes) => (
-					<div key={item.id} className="bg-white rounded-lg shadow-md p-4 w-96 m-5">
+					<div
+						key={item.id}
+						className="bg-white rounded-lg shadow-md my-5 p-2 sm:p-4 w-full sm:w-96 sm:m-5"
+					>
 						<img src={item.image} alt="chefes" className="object-contain rounded-lg" />
 						<h3 className="text-xl font-semibold">{item.name}</h3>
 					</div>

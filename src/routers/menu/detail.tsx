@@ -1,15 +1,24 @@
-import React from "react";
-import ImageFood from "../../assets/nasi-ayam.png";
+import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { MENU, MenuTypes } from "../../data";
 
 const DetailMenu: React.FC = () => {
 	const { id } = useParams();
-
 	const detailMenu = MENU.find((item: MenuTypes) => item.id === parseInt(id || ""));
 
+	const containerRef: React.LegacyRef<HTMLDivElement> = useRef(null);
+
+	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			left: 0,
+			behavior: "smooth",
+		});
+		containerRef.current?.scrollIntoView();
+	}, []);
+
 	return (
-		<div className="container mx-auto px-4">
+		<div ref={containerRef} className="container mx-auto px-4">
 			<div className="md:flex">
 				<div className="md:w-1/2">
 					<img

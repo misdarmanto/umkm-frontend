@@ -13,7 +13,7 @@ type CardTypes = {
 const CardStyle = ({ image, title, price, stars, className }: CardTypes) => {
 	return (
 		<div className="max-w-sm">
-			<Card imgAlt="image" imgSrc={image} className={`m-5 p-3 ${className}`}>
+			<Card imgAlt="image" imgSrc={image} className={`md:m-5 p-3 ${className}`}>
 				<Typography variant="h3">{title}</Typography>
 				<div className="mt-2.5 mb-2 flex items-center">
 					{[...Array(stars).keys()].map((star: number) => (
