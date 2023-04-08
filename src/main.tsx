@@ -7,6 +7,8 @@ import Contact from "./routers/contact";
 import About from "./routers/about";
 import ErrorPage from "./error-page";
 import Root from "./routers/root";
+import Menu from "./routers/menu";
+import DeatailMenu from "./routers/menu/detail";
 
 const router = createBrowserRouter([
 	{
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
 			{
 				path: "/",
 				element: <Home />,
+			},
+			{
+				path: "/menu",
+				element: <Menu />,
+			},
+			{
+				path: "/menu/detail/:id",
+				element: <DeatailMenu />,
 			},
 			{
 				path: "/contact",

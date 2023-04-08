@@ -1,17 +1,18 @@
 import { Card } from "flowbite-react";
+import Typography from "../typography";
 
-const CardStyle = () => {
+type CardTypes = {
+	image: string;
+	title: string;
+	price: number;
+	className?: string;
+};
+
+const CardStyle = ({ image, title, price, className }: CardTypes) => {
 	return (
 		<div className="max-w-sm">
-			<Card
-				imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-				imgSrc="https://www.shutterstock.com/image-photo/ayam-goreng-geprek-pecel-sambal-bawang-2142801989"
-			>
-				<a href="#">
-					<h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-						Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-					</h5>
-				</a>
+			<Card imgAlt="image" imgSrc={image} className={`m-5 p-5 ${className}`}>
+				<Typography variant="h3">{title}</Typography>
 				<div className="mt-2.5 mb-5 flex items-center">
 					<svg
 						className="h-5 w-5 text-yellow-300"
@@ -58,13 +59,7 @@ const CardStyle = () => {
 					</span>
 				</div>
 				<div className="flex items-center justify-between">
-					<span className="text-3xl font-bold text-gray-900 dark:text-white">$599</span>
-					<a
-						href="#"
-						className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-					>
-						Add to cart
-					</a>
+					<Typography variant="p">Rp.{price}</Typography>
 				</div>
 			</Card>
 		</div>
