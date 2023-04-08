@@ -5,7 +5,7 @@ import Logo from "../../assets/icon.png";
 const FooterStyle = () => {
 	return (
 		<Footer container={true}>
-			<div className="w-full">
+			<div className="w-full pt-10">
 				<div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
 					<div>
 						<Footer.Brand href="/" src={Logo} alt="Logo" name="Mbadok" />

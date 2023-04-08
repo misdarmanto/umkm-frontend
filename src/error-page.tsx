@@ -1,16 +1,24 @@
-import { useRouteError } from "react-router-dom";
+import { Link, useRouteError } from "react-router-dom";
 
 export default function ErrorPage() {
 	const error: any = useRouteError();
 	console.error(error);
 
 	return (
-		<div id="error-page">
-			<h1>Oops!</h1>
-			<p>Sorry, an unexpected error has occurred.</p>
-			<p>
-				<i>{error.statusText || error.message}</i>
-			</p>
+		<div className="min-h-screen flex items-center justify-center bg-gray-100">
+			<div className="bg-white p-8 rounded-lg shadow-md">
+				<h1 className="text-3xl font-semibold mb-4">Oops! Terjadi Kesalahan</h1>
+				<p className="text-gray-500 mb-6">Maaf, halaman yang Anda cari tidak ditemukan.</p>
+				<button
+					className="bg-teal-500 text-white py-2 px-4 rounded-md hover:bg-teal-600 focus:outline-none focus:ring-teal-400"
+					onClick={() => window.location.reload()}
+				>
+					Coba Lagi
+				</button>
+				<button className="bg-teal-500 mx-5 text-white py-2 px-4 rounded-md hover:bg-teal-600 focus:outline-none focus:ring-teal-400">
+					<Link to={"/"}>Kembali ke Home</Link>
+				</button>
+			</div>
 		</div>
 	);
 }

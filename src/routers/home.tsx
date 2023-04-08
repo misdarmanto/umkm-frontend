@@ -4,6 +4,10 @@ import ImageVegtable from "../assets/banner2.png";
 import ImageFood from "../assets/nasigoreng.png";
 import Typography from "../components/typography";
 import CardStyle from "../components/card";
+import { CHEF, ChefTypes } from "../data/chef";
+import { FEEDBACK, FeedbackTypes } from "../data/feed-back";
+import { POPULAR_FOOD, PopularFoodTypes } from "../data/popular-food";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 	return (
@@ -29,11 +33,19 @@ const Home = () => {
 			</div>
 
 			<Typography variant="h2" className="text-center mb-5">
-				Menu Pupular
+				Menu Popular
 			</Typography>
 			<div className="flex overflow-x-auto max-w-full my-5">
-				{[1, 2, 3, 4, 5, 6, 7].map((item: any) => (
-					<CardStyle key={item} title="hello" price={item * 100} image={ImageFood} />
+				{POPULAR_FOOD.map((item: PopularFoodTypes) => (
+					<Link to={`/menu/detail/${item.id}`}>
+						<CardStyle
+							key={item.id}
+							title={item.title}
+							stars={item.stars}
+							price={item.price}
+							image={item.image}
+						/>
+					</Link>
 				))}
 			</div>
 
@@ -58,48 +70,36 @@ const Home = () => {
 			</div>
 
 			<Typography variant="h2" className="text-center my-20">
-				Apa kata pelanggan kami
+				Bersama Chef profesional
 			</Typography>
-			<div className="flex overflow-x-auto max-w-full">
-				{[1, 2, 3, 4, 5].map((item: any) => (
-					<div className="max-w-sm">
-						<Card key={item} className="w-64 m-5 p-2">
-							<p className="font-normal text-gray-700 dark:text-gray-400">
-								Here are the biggest enterprise technology acquisitions of 2021 so far, in
-								reverse chronological order.
-							</p>
-							<div className="flex">
-								<Avatar
-									img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-									rounded={true}
-								/>
-								<h5 className="text-2xl mx-5 font-bold tracking-tight text-gray-900 dark:text-white">
-									Jarwo
-								</h5>
-							</div>
-						</Card>
+			<div className=" sm:flex max-w-full">
+				{CHEF.map((item: ChefTypes) => (
+					<div key={item.id} className="bg-white rounded-lg shadow-md p-4 w-96 m-5">
+						<img src={item.image} alt="chefes" className="object-contain rounded-lg" />
+						<h3 className="text-xl font-semibold">{item.name}</h3>
 					</div>
 				))}
 			</div>
 
 			<Typography variant="h2" className="text-center my-20">
-				Cheif Kami
+				Apa kata pelanggan kami
 			</Typography>
 			<div className="flex overflow-x-auto max-w-full">
-				{[1, 2, 3, 4, 5].map((item: any) => (
-					<div className="max-w-sm">
-						<Card key={item} className="w-64 m-5 p-2">
-							<p className="font-normal text-gray-700 dark:text-gray-400">
-								Here are the biggest enterprise technology acquisitions of 2021 so far, in
-								reverse chronological order.
+				{FEEDBACK.map((item: FeedbackTypes) => (
+					<div key={item.id} className="max-w-sm m-5">
+						<Card key={item.id} className="w-96 p-2 h-64">
+							<p className="font-normal truncate-50 text-gray-700 dark:text-gray-400">
+								{item.message}
 							</p>
 							<div className="flex">
-								<Avatar
-									img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-									rounded={true}
+								<img
+									className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 "
+									src={item.avatar}
+									alt="Bordered avatar"
 								/>
+
 								<h5 className="text-2xl mx-5 font-bold tracking-tight text-gray-900 dark:text-white">
-									Jarwo
+									{item.userName}
 								</h5>
 							</div>
 						</Card>
