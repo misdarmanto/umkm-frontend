@@ -1,4 +1,5 @@
 ## Link
+aplikasi yang sudah di deploy
 - [Lihat Live Demo](https://umkm-app-deploy-ytr7.vercel.app/)
 
 # umkm-frontend
@@ -6,7 +7,9 @@
 website UMKM restorant
 
 ## Instalasi
-npm install
+```
+$ npm install
 
+```
 
 
