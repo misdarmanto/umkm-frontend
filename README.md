@@ -1,5 +1,5 @@
 ## Link
-- [Live Demo](https://umkm-app-deploy-ytr7.vercel.app/)
+- [Lihat Live Demo](https://umkm-app-deploy-ytr7.vercel.app/)
 
 # umkm-frontend
 ## Deskripsi
