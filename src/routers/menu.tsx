@@ -1,22 +1,35 @@
-import ImageFood from "../assets/nasigoreng.png";
 import Typography from "../components/typography";
 import CardStyle from "../components/card";
 import { Link } from "react-router-dom";
-import { MENU, MenuTypes } from "../data";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { MenuTypes } from "../types";
+import { ServiceApi } from "../services/api";
+import { CONFIG } from "../configs";
 
 const Menu = () => {
-	const [listMenu, setListMenu] = useState(MENU);
+	const [listMenu, setListMenu] = useState<MenuTypes[]>([]);
+	const [serchResult, setSerachResult] = useState<MenuTypes[]>([]);
+
+	const fecthData = async () => {
+		const serviceApi = new ServiceApi(CONFIG.base_url_api);
+		const menus = await serviceApi.get("/menu/list");
+		setListMenu(menus.items);
+		setSerachResult(menus.items);
+	};
+
+	useEffect(() => {
+		fecthData();
+	}, []);
 
 	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		if (event.target.value === "") {
-			setListMenu(MENU);
+			setSerachResult(listMenu);
 			return;
 		}
-		const result = MENU.filter((item: MenuTypes) => {
+		const result = listMenu.filter((item: MenuTypes) => {
 			if (item.title.toUpperCase().search(event.target.value.toUpperCase()) !== -1) return item;
 		});
-		setListMenu(result);
+		setSerachResult(result);
 	};
 
 	return (
@@ -55,12 +68,12 @@ const Menu = () => {
 			</form>
 
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-				{listMenu.length === 0 && (
+				{serchResult.length === 0 && (
 					<div className="flex items-center justify-center">
 						<Typography variant="h5">Opss!... Menu tidak ada</Typography>
 					</div>
 				)}
-				{listMenu.map((item: MenuTypes) => (
+				{serchResult.map((item: MenuTypes) => (
 					<Link to={`/menu/detail/${item.id}`}>
 						<CardStyle
 							key={item.id}

@@ -5,7 +5,7 @@ import { convertNumberToCurrency } from "../../utils/convertNumberToCurrency";
 type CardTypes = {
 	image: string;
 	title: string;
-	price: number;
+	price: number | string;
 	className?: string;
 	stars: number;
 };
@@ -32,7 +32,7 @@ const CardStyle = ({ image, title, price, stars, className }: CardTypes) => {
 					</span>
 				</div>
 				<div className="flex items-center justify-between">
-					<Typography variant="p">Rp.{convertNumberToCurrency(price)}</Typography>
+					<Typography variant="p">Rp.{convertNumberToCurrency(+price)}</Typography>
 				</div>
 			</Card>
 		</div>

@@ -3,24 +3,33 @@ import ImageBanner from "../assets/banner1.png";
 import ImageVegtable from "../assets/banner2.png";
 import Typography from "../components/typography";
 import CardStyle from "../components/card";
-import { CHEF, ChefTypes } from "../data/chef";
-import { FEEDBACK, FeedbackTypes } from "../data/feed-back";
-import { POPULAR_FOOD, PopularFoodTypes } from "../data/popular-food";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ServiceApi } from "../services/api";
 import { CONFIG } from "../configs";
+import { ChefTypes, FeedbackTypes, MenuTypes } from "../types";
 
 const Home = () => {
-	useEffect(() => {
-		fecthData();
-	}, []);
+	const [listPopularMenu, setListPopularMenu] = useState<MenuTypes[]>([]);
+	const [listChefe, setListChefe] = useState<ChefTypes[]>([]);
+	const [listFeedBack, setListFeedBack] = useState<FeedbackTypes[]>([]);
 
 	const fecthData = async () => {
 		const serviceApi = new ServiceApi(CONFIG.base_url_api);
-		const result = await serviceApi.get("/menu");
-		console.log(result);
+		const menus = await serviceApi.get("/menu/list?category=popular");
+		setListPopularMenu(menus.items);
+		console.log(menus);
+
+		const feedBack = await serviceApi.get("/feed-back/list");
+		setListFeedBack(feedBack.items);
+
+		const chefe = await serviceApi.get("/employee/list");
+		setListChefe(chefe.items);
 	};
+
+	useEffect(() => {
+		fecthData();
+	}, []);
 
 	return (
 		<>
@@ -48,7 +57,7 @@ const Home = () => {
 				Menu Populer
 			</Typography>
 			<div className="flex overflow-x-auto max-w-full my-5">
-				{POPULAR_FOOD.map((item: PopularFoodTypes) => (
+				{listPopularMenu.map((item: MenuTypes) => (
 					<Link to={`/menu/detail/${item.id}`}>
 						<CardStyle
 							key={item.id}
@@ -86,7 +95,7 @@ const Home = () => {
 				Bersama Chef profesional
 			</Typography>
 			<div className=" sm:flex max-w-full">
-				{CHEF.map((item: ChefTypes) => (
+				{listChefe.map((item: ChefTypes) => (
 					<div
 						key={item.id}
 						className="bg-white rounded-lg shadow-md my-5 p-2 sm:p-4 w-full sm:w-96 sm:m-5"
@@ -101,7 +110,7 @@ const Home = () => {
 				Apa kata pelanggan kami
 			</Typography>
 			<div className="flex overflow-x-auto max-w-full">
-				{FEEDBACK.map((item: FeedbackTypes) => (
+				{listFeedBack.map((item: FeedbackTypes) => (
 					<div key={item.id} className="max-w-sm m-5">
 						<Card key={item.id} className="w-96 p-2 h-64">
 							<p className="font-normal truncate-50 text-gray-700 dark:text-gray-400">
@@ -110,12 +119,12 @@ const Home = () => {
 							<div className="flex">
 								<img
 									className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 "
-									src={item.avatar}
+									src={item.image}
 									alt="Bordered avatar"
 								/>
 
 								<h5 className="text-2xl mx-5 font-bold tracking-tight text-gray-900 dark:text-white">
-									{item.userName}
+									{item.name}
 								</h5>
 							</div>
 						</Card>
